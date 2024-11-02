@@ -1,8 +1,8 @@
 (defsystem "validated-class"
   :version "0.0.1"
   :author "cvdub"
-  :depends-on ()
   :license "MIT"
+  :depends-on ("closer-mop")
   :components ((:module "src"
                 :components
                 ((:file "main"))))
