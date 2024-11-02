@@ -6,7 +6,7 @@
   :components ((:module "src"
                 :components
                 ((:file "main"))))
-  :description ""
+  :description "CLOS metaclass supporting class and slot validation"
   :in-order-to ((test-op (test-op "validated-class/tests"))))
 
 (defsystem "validated-class/tests"
