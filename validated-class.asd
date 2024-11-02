@@ -1,8 +1,8 @@
 (defsystem "validated-class"
   :version "0.0.1"
   :author "cvdub"
-  :license ""
   :depends-on ()
+  :license "MIT"
   :components ((:module "src"
                 :components
                 ((:file "main"))))
@@ -11,7 +11,7 @@
 
 (defsystem "validated-class/tests"
   :author "cvdub"
-  :license ""
+  :license "MIT"
   :depends-on ("validated-class"
                "rove")
   :components ((:module "tests"
