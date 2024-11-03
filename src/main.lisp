@@ -1,7 +1,21 @@
 (uiop:define-package validated-class
   (:use #:cl)
-  (:export :validated-class))
+  (:export :validated-class :validation-error))
 (in-package #:validated-class)
+
+(define-condition validation-error (error)
+  ((validator :initarg :validator
+              :initform (error "validator is required")
+              :accessor validator)
+   (slot-name :initarg :slot-name
+              :initform (error "slot-name is required")
+              :accessor slot-name)
+   (value :initarg :value
+          :initform (error "value is required")))
+  (:report (lambda (condition stream)
+             (with-slots (validator slot-name value) condition
+               (format stream "~a failed when setting ~a to ~a"
+                       validator slot-name value)))))
 
 (defclass validated-slot-definition ()
   ((validators :initarg :validators :accessor validators :initform nil)))
@@ -40,5 +54,6 @@
     (new-value (class validated-class) instance slot)
   (dolist (validator (validators slot))
     (unless (ignore-errors (funcall validator new-value))
-      (error "Validation error: ~a failed when setting ~a to ~a"
-             validator (c2mop:slot-definition-name slot) new-value))))
+      (error 'validation-error :validator validator
+                               :slot-name (c2mop:slot-definition-name slot)
+                               :value new-value))))
