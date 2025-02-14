@@ -1,6 +1,6 @@
 #+TITLE: validated-class
 
-This library provides the ~validated-class~ metaclass, which adds a ~:validators~ slot parameter. ~:validators~ can be set to a list of one or more predicates which are checked on object creation and slot updates.
+The ~validated-class~ metaclass provides a ~:validators~ slot parameter. ~:validators~ takes a list of one or more predicates which are run on object creation and slot updates.
 
 * Usage
 #+begin_src common-lisp
@@ -10,10 +10,19 @@ This library provides the ~validated-class~ metaclass, which adds a ~:validators
   (defclass test-class ()
     ((foo :initarg :foo
           :accessor foo
-          :validators (stringp less-than-5?))
-     (bar :initarg :bar
-          :accessor bar))
+          :validators (stringp less-than-5?)))
     (:metaclass validated-class))
+
+  ;; CL-USER> (make-instance 'test-class :foo 123)
+  ;; STRINGP failed when setting FOO to 123
+  ;;    [Condition of type VALIDATION-ERROR]
+  ;;
+  ;; CL-USER> (make-instance 'test-class :foo "12345")
+  ;; LESS-THAN-5? failed when setting FOO to 12345
+  ;;    [Condition of type VALIDATION-ERROR]
+  ;;
+  ;; CL-USER> (make-instance 'test-class :foo "1234")
+  ;; #<TEST-CLASS {7007E09133}>
 #+end_src
 
 * Other implementations worth exploring
