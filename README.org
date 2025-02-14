@@ -1,6 +1,6 @@
 #+TITLE: validated-class
 
-The ~validated-class~ metaclass provides a ~:validators~ slot parameter. ~:validators~ takes a list of one or more predicates which are run on object creation and slot updates.
+The ~validated-class~ metaclass provides a ~:validators~ slot parameter. ~:validators~ takes a list of one or more predicates which are run on object creation and slot updates. Failed valiadtors singnal the ~validation-error~ condition.
 
 * Usage
 #+begin_src common-lisp
