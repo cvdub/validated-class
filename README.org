@@ -15,3 +15,6 @@ This library provides the ~validated-class~ metaclass, which adds a ~:validators
           :accessor bar))
     (:metaclass validated-class))
 #+end_src
+
+* Other implementations worth exploring
+- [[https://www.hexstreamsoft.com/libraries/canonicalized-initargs/][canonicalized-initargs]]
